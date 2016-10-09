@@ -1,0 +1,17 @@
+<head>
+  <meta charset="UTF-8">
+  <title>meteor in 50 minutes</title>
+</head>
+<body>
+  <h1>Welcome to Meteor!</h1>
+
+  {{> tasks}}
+</body>
+
+<template name="tasks">
+  <ul>
+  {{#each tasks}}
+    <li>{{names}}</li>
+  {{/each}}
+  </ul>
+</template>
