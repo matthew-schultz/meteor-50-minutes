@@ -16,11 +16,7 @@ if (Meteor.isClient) {
     "submit .add-task": function(event){
       var name = event.target.name.value;
 
-      Tasks.insert({
-        name: name,
-        createdAt: new Date(),
-        userID: Meteor.userId()
-      });
+      Meteor.call('addTask', name);
 
       event.target.name.value = '';
 
@@ -28,13 +24,32 @@ if (Meteor.isClient) {
     },
     "click .delete-task": function(event){
       if(confirm('Delete Task?')){
-        Tasks.remove(this._id);
+        Meteor.call('deleteTask', this._id);
       }
       
       return false;
     }
   });
 }
+
+Meteor.methods({
+  addTask: function(name){
+    if(!Meteor.userId()){
+      throw new Meteor.error('No Access')
+    }
+
+    Tasks.insert({
+      name: name,
+      createdAt: new Date(),
+      userID: Meteor.userId()
+    });
+  },
+  deleteTask: function(taskId) {
+    Tasks.remove(taskId);
+  }
+});
+
+
 //*****breaks compile*****
 // else {
 //   alert("Meteor is not Client :(");
