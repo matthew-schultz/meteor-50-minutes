@@ -14,7 +14,7 @@ if (Meteor.isClient) {
 
   Template.tasks.events({
     "submit .add-task": function(event){
-      let name = event.target.name.value;
+      var name = event.target.name.value;
 
       Tasks.insert({
         name: name,
@@ -26,8 +26,10 @@ if (Meteor.isClient) {
       return false;
     },
     "click .delete-task": function(event){
-      if(confirm('Delete Task?')){}
-        Tasks.remove(this._id)
+      if(confirm('Delete Task?')){
+        Tasks.remove(this._id);
+      }
+      
       return false;
     }
   });
