@@ -14,7 +14,7 @@ if (Meteor.isClient) {
 
   Template.tasks.events({
     "submit .add-task": function(event){
-      var name = event.target.name.value;
+      let name = event.target.name.value;
 
       Meteor.call('addTask', name);
 
@@ -35,7 +35,7 @@ if (Meteor.isClient) {
 Meteor.methods({
   addTask: function(name){
     if(!Meteor.userId()){
-      throw new Meteor.error('No Access')
+      //throw new Meteor.Error('No Access');
     }
 
     Tasks.insert({
